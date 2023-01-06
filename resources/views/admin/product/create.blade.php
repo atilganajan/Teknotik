@@ -7,13 +7,13 @@
                     Ürün Oluştur
                 </h2>
             </header>
-            <form action="{{ route('product.store') }}"  method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class=" col-lg-4">
                         <label for="image1" class="form-label">Ürün Fotoğrafı-1 &nbsp; &nbsp; <small
                                 class="text-danger ">zorunlu alan</small> </label>
-                        <input type="file" name="image1" class="form-control shadow-sm " >
+                        <input type="file" name="image1" class="form-control shadow-sm ">
                         @error('image1')
                             <p class="text-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
                         @enderror
@@ -21,7 +21,7 @@
                     <div class="col-lg-4 mt-2 mt-lg-0">
                         <label for="image2" class="form-label">Ürün Fotoğrafı-2 &nbsp; &nbsp; <small
                                 class="opacity-75">isteğe bağlı </small></label>
-                        <input type="file" name="image2" class="form-control shadow-sm " >
+                        <input type="file" name="image2" class="form-control shadow-sm ">
                     </div>
                     <div class="col-lg-4 mt-2 mt-lg-0">
                         <label for="image3" class="form-label">Ürün Fotoğrafı-3 &nbsp; &nbsp; <small
@@ -64,9 +64,50 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Oluştur</button>
+                <div class=" mb-3">
+                    <label for="mainCategory" class="form-label  absolute">Ana Kategori</label>
+                    <div class="input-group">
+                        <select id="mainCategory" class=" shadow-sm form-select">
+                            <option value="" selected>Seçiniz...</option>
+                            @foreach ($mainCategories as $category)
+                                <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class=" mb-3">
+                    <label for="sub_category_id" class="form-label  absolute">Alt Kategori</label>
+                    <div class="input-group">
+                        <select id="subCategory" name="sub_category_id" class=" shadow-sm form-select">
+                            <option value="" selected>Seçiniz...</option>
+                            @foreach ($subCategories as $category)
+                                <option style="display: none" id="{{ $category->main_category_id }}"
+                                    value="{{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @error('sub_category_id')
+                        <p class="text-danger "><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
+                    @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary shadow-sm w-100">Oluştur</button>
             </form>
 
         </div>
     </div>
 </x-app>
+
+<slot name="js">
+    <script>
+        $("#mainCategory").change(function() {
+            $('#subCategory > option').map((i, option) => {
+                $(option).hide();
+                if (option.id == $(this).val()) {
+                    $(option).show();
+                }
+            });
+        })
+    </script>
+</slot>

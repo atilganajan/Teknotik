@@ -30,7 +30,10 @@ class ProductUpdateRequest extends FormRequest
             "price" => "required|numeric|gt:0",
             "product_finished_at" => "nullable|after:" . now(),
             "discount_finished_at" => "nullable|after:" . now(),
-            "discount" => "min:1|max:99|numeric|gt:0|nullable"
+            "discount" => "min:1|max:99|numeric|gt:0|nullable",
+            "sub_category_id"=>"required",
+            "status"=>"required",
+            "discounted_price"=>"numeric|gt:0|nullable"
         ];
     }
     public function attributes()
@@ -43,9 +46,10 @@ class ProductUpdateRequest extends FormRequest
             "price" => "Ürün Fiyatı",
             "product_finished_at" => "Ürün Yayın Bitiş Tarihi",
             "discount_finished_at" => "İndirim Yayın Bitiş Tarihi",
-            "discount" => "İndirim"
-
-
+            "discount" => "İndirim",
+            "sub_category_id"=>"Kategori",
+            "status"=>"Ürün Durumu",
+            "discounted_price"=>"İndirimli Fiyat"
         ];
     }
 }

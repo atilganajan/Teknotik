@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         "title",
         "description",
         "status",
@@ -22,7 +22,32 @@ class Product extends Model
         "image2_id",
         "image3_id",
         "discount",
+        "discounted_price",
         "discount_finished_at",
-        "product_finished_at"
+        "product_finished_at",
+        "sub_category_id"
     ];
+
+    public function category()
+    {
+        return  $this->belongsTo("App\Models\SubCategory", "sub_category_id");
+    }
+
+    public function scopeFilter($query, array $products)
+    {
+         if($products["category"]?? false){
+            $query->where("sub_category_id",   request("category") );
+         }
+
+        if ($products["search"] ?? false) {
+            $query->where("title", "like", "%" . request("search") . "%")
+                ->orWhere("description", "like", "%" . request("search") . "%");
+        }
+    }
+
+    public function questionComments(){
+      return  $this->hasMany(ProductQuestion::class);
+    }
+
+    
 }

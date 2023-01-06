@@ -12,4 +12,12 @@ class MainCategory extends Model
     protected $fillable = [
         'title',
     ];
+
+
+    
+    public function subCategories(){
+   return $this->hasMany("App\Models\SubCategory");
+    }
+
+
 }

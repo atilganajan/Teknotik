@@ -1,11 +1,22 @@
 @if (session()->has('message'))
-    <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show">
-        <div class="d-flex justify-content-center mt-3">
-            <div class="alert alert-info w-50 text-center">
-                <p>
-                    <i class="fa fa-check"></i> {{ session('message') }}
-                </p>
-            </div>
-        </div>
-    </div>
+<div style="display: none" id="message" >{{session("message")}}</div>
+    <slot name="js">
+        <script>
+            $(window).ready(function() {
+                const message= $("#message").html()
+                if(message!==""){
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title:message ,
+                    showConfirmButton: false,
+                    customClass: 'swal-wide',
+                    timer: 1500
+                })
+                
+                }
+
+            })
+        </script>
+    </slot>
 @endif

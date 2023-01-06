@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\SubCategory;
+use App\Models\MainCategory;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
@@ -17,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(12);
+        $products = Product::latest()->filter(request(["search"]))->paginate(12);
         return view("admin.product.products", compact("products"));
     }
 
@@ -30,7 +32,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("admin.product.create");
+      $mainCategories= MainCategory::get();
+      $subCategories=SubCategory::get();
+        return view("admin.product.create",compact("mainCategories","subCategories"));
     }
 
     /**
@@ -57,12 +61,12 @@ class ProductController extends Controller
             $request["image3"] = $result->getPath();
         }
 
-        // $uploadedFileUrl = Cloudinary::upload($request->file('image1')->getRealPath(), [
-        //     "folder" => "teknotik"
-        // ])->getSecurePath();
+// Programlama Temelleri
+// Temel Matematik
+// Web Tasarımının Temelleri
 
         Product::create($request->post());
-        return redirect("/")->with("message", "Ürün başarıyla oluşturuldu!");
+        return redirect(route("product.index"))->with("message", "Ürün başarıyla oluşturuldu!");
     }
 
     /**
@@ -71,9 +75,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($status)
     {
-        //
+        
+       $products= Product::latest()->where("status",$status)->paginate(12);
+        return view("admin.product.products", compact("products"));
+
     }
 
     /**
@@ -84,9 +91,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $mainCategories= MainCategory::get();
+        $subCategories=SubCategory::get();
         $product = Product::find($id);
 
-        return view("admin.product.edit", compact("product"));
+        return view("admin.product.edit", compact("product","mainCategories","subCategories"));
     }
 
     /**
@@ -134,11 +143,12 @@ class ProductController extends Controller
             "price"=>$request->price,
             "discount"=>$request->discount,
             "discount_finished_at"=>$request->discount_finished_at,
-            "product_finished_at"=>$request->product_finished_at
+            "product_finished_at"=>$request->product_finished_at,
+            "sub_category_id"=>$request->sub_category_id,
+            "status"=>$request->status,
+            "discounted_price"=>$request->discounted_price 
         ]);
-
-        return redirect(route("admin.index"))->with("messages","Başarıyla Güncellendi");
-
+        return redirect(route("product.index"))->with("message","Başarıyla Güncellendi");
     }
 
     /**

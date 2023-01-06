@@ -4,7 +4,7 @@
 
             <header class="text-center mb-4">
                 <h2 class="text-2xl font-bold ">
-                    Ürün Oluştur
+                   Ana Kategori Oluştur
                 </h2>
             </header>
             <form action="{{ route("main-category.store") }}"  method="POST" enctype="multipart/form-data">

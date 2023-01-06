@@ -1,22 +1,22 @@
 <x-app>
 
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center  mt-4">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Register</div>
+                    <div class="card-header">Kayıt Ol</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">Name</label>
+                                    class="col-md-4 col-form-label text-md-end">İsim</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
+                                        class="form-control border @error('name') is-invalid @enderror" name="name"
                                         value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
@@ -29,11 +29,11 @@
 
                             <div class="row mb-3">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">Email Address</label>
+                                    class="col-md-4 col-form-label text-md-end">Mail Adres</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        class="form-control border @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" required autocomplete="email">
 
                                     @error('email')
@@ -46,11 +46,11 @@
 
                             <div class="row mb-3">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">Password</label>
+                                    class="col-md-4 col-form-label text-md-end">Şifre</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        class="form-control border @error('password') is-invalid @enderror" name="password"
                                         required autocomplete="new-password">
 
                                     @error('password')
@@ -63,18 +63,18 @@
 
                             <div class="row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">Confirm Password</label>
+                                    class="col-md-4 col-form-label text-md-end">Şifre Onayla</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
+                                    <input id="password-confirm" type="password" class="form-control border"
                                         name="password_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Register
+                                    <button type="submit" class="btn btn-primary shadow-sm">
+                                        Kayıt Ol
                                     </button>
                                 </div>
                             </div>

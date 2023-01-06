@@ -1,5 +1,5 @@
 <x-app>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center w-100">
         <div class="bg-secondary bg-opacity-25 p-5 col-lg-7 col-md-9 ">
 
             <header class="text-center">
@@ -62,6 +62,62 @@
                     @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label for="status" class="form-label">Ürün Durumu</label>
+                    <div class="input-group">
+                        <select name="status" class="form-select shadow-sm" id="">
+                            <option @if ($product->status=="draft")
+                                selected
+                            @endif value="draft">Taslak</option>
+
+                            <option @if ($product->status=="publish")
+                                selected
+                            @endif value="publish">Yayın</option>
+
+                            <option @if ($product->status=="passive")
+                                selected
+                            @endif value="passive">Pasif</option>
+                        </select>
+                    </div>
+                    @error('status')
+                        <p class="text-danger "><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class=" mb-3">
+                    <label for="mainCategory" class="form-label  absolute">Ana Kategori</label>
+                    <div class="input-group">
+                        <select id="mainCategory" class=" shadow-sm form-select">
+                            <option value="" selected>Seçiniz...</option>
+                            @foreach ($mainCategories as $category)
+                                <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class=" mb-3">
+                    <label for="sub_category_id" class="form-label  absolute">Alt Kategori</label>
+                    <div class="input-group">
+                        <select id="subCategory" name="sub_category_id" class=" shadow-sm form-select">
+                            <option value="" selected>Seçiniz...</option>
+                            @foreach ($subCategories as $category)
+                                <option 
+                                    style="display: none"
+                               
+                                @if ($product->sub_category_id==$category->id)
+                                    selected
+                                @endif
+                                id="{{ $category->main_category_id }}"
+                                    value="{{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @error('sub_category_id')
+                        <p class="text-danger "><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div class=" mb-3">
                     <label for="quantity" class="form-label absolute">Ürün Adeti</label>
                     <div class="input-group">
@@ -80,6 +136,7 @@
                             class="form-control shadow-sm" id="price">
                         <span class="input-group-text"><i class="fa fa-try"></i></span>
                     </div>
+                    <small id="priceMessage" style="display: none" class="text-danger">0'dan küçük değer giremezsiniz!</small>
                     @error('price')
                         <p class="text-danger "><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
                     @enderror
@@ -106,18 +163,20 @@
                     <div class="col-sm-6">
                         <label for="discountedPrice" class="form-label  absolute">İndirimli Fiyatı</label>
                         <div class="input-group">
-                            <input type="number" class="form-control shadow-sm" id="discountedPrice">
+                            <input type="number" name="discounted_price" class="form-control shadow-sm" id="discountedPrice">
                             <span class="input-group-text"><i class="fa fa-try"></i></span>
                         </div>
-                        <small id="discountedPriceMessage" style="display: none" class="text-danger">Lütfen geçerli
-                            sayı
-                            girin</small>
+                        <small id="discountedPriceMessage" style="display: none" class="text-danger">Sadece %1 ile
+                            %99 oranında indirim yapabilirsiniz!</small>
                     </div>
+                    @error('discounted_price')
+                    <p class="text-danger "><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
+                @enderror
                 </div>
 
                 <div class="form-group  " id="discountTime" style="display: none">
-                    <label class="my-2">İndirim Bitiş Tarihi</label>
-                    <input type="datetime-local" name="discount_finished_at" id="discountDate" class="form-control"
+                    <label class="my-2">İndirim Bitiş Tarihi</label> &nbsp;  <small>* isteğe bağlı</small>
+                    <input type="datetime-local" min="{{ date('Y-m-d\TH:i') }}" name="discount_finished_at" id="discountDate" class="form-control"
                         value="{{ $product->discount_finished_at }}">
                     @error('discount_finished_at')
                         <p class="text-danger "><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
@@ -131,14 +190,14 @@
                 </div>
                 <div class="form-group mb-3" id="productTime" style="display: none">
                     <label class="my-2">Yayın Bitiş Tarihi</label>
-                    <input type="datetime-local" name="product_finished_at" id="productDate" class="form-control"
+                    <input type="datetime-local" min="{{ date('Y-m-d\TH:i') }}" name="product_finished_at" id="productDate" class="form-control"
                         value="{{ $product->product_finished_at }}">
                     @error('product_finished_at')
                         <p class="text-danger "><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Güncelle</button>
+                <button type="submit" class="btn btn-primary shadow-sm w-100">Güncelle</button>
             </form>
 
         </div>
@@ -165,6 +224,21 @@
                     )
                 }
             }
+            // console.log($("#subCategory").val());
+            let mainCategoryId;
+            $('#subCategory > option').map((i, option) => {
+                
+                if($(option).val()=={{{$product->sub_category_id}}}){
+                    mainCategoryId=option.id
+                }
+            });
+            $('#subCategory > option').map((i, option) => {
+                if(option.id==mainCategoryId){
+                    $(option).show() 
+                }
+                $('#mainCategory').val(mainCategoryId)
+            })
+
         });
 
         // Product Show
@@ -183,11 +257,14 @@
                 $("#discountShow").show()
 
             } else {
+
                 $("#discountTime").hide()
                 $("#discountShow").hide()
-
+                $("#discountedPrice").val("")
+                $("#discount").val("")
             }
         })
+
 
         // Discount Calculation 
         $("#discount").on("input", function() {
@@ -201,6 +278,11 @@
                 $(this).val("")
                 $("#discountedPrice").val("")
             }
+            if($("#discountedPrice").val()==0){
+                $("#discount").val("")
+                $("#discountedPrice").val("")
+                $("#discountedPriceMessage").html(" İndirimli fiyat 0 olamaz!").show()
+            }
         });
 
         $("#discountedPrice").on("input", function() {
@@ -209,8 +291,10 @@
                 Math.round(100 - (($(this).val() * 100) / $("#price").val()))
             )
             if ($("#discount").val() < 1) {
-                $("#discount").val("")
+                $("#discount").val(1)
                 $("#discountedPriceMessage").show()
+                $(this).val(Math.round($("#price").val() - ($("#price").val() / 100)))
+
             }
             if ($("#discount").val() > 99) {
                 $("#discount").val("")
@@ -219,14 +303,45 @@
             if ($(this).val() == "") {
                 $("#discountedPriceMessage").hide()
             }
+            if ($(this).val() < 1) {
+                $(this).val("")
+            }
         });
 
         $("#price").on("input", function() {
+            $("#priceMessage").hide()
+            if($(this).val()<0){
+                $("#priceMessage").show()
+                $(this).val(0)            }
             if ($("#discount").val()) {
                 $("#discountedPrice").val(
                     Math.round($("#price").val() - (($("#price").val() / 100) * $("#discount").val()))
                 )
             }
+            if($(this).val()>0 && $(this).val()==$("#discountedPrice").val()){
+                $("#discount").val("")
+                $("#discountedPrice").val("")
+                $("#priceMessage").html("Fiyat ile İndirimli fiyat aynı olamaz!").show()
+            }
+            if($("#discountedPrice").val()==0){
+                $("#discount").val("")
+                $("#discountedPrice").val("")
+            }
+
         });
+
+        // category
+        $("#mainCategory").change(function() {
+            $('#subCategory').val("")
+            $('#subCategory > option').map((i, option) => {
+                $(option).hide();
+                if (option.id == $(this).val()) {
+                    console.log($(this).val())
+                    $(option).show();
+                }
+            });
+        })
+
+
     </script>
 </slot>

@@ -14,7 +14,8 @@ class MainCategoryController extends Controller
      */
     public function index()
     {
-        //
+      $mainCategories= MainCategory::paginate(10);
+      return view("admin.main-category.main-categories",compact("mainCategories"));
     }
 
     /**
@@ -62,7 +63,9 @@ class MainCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mainCategory=  MainCategory::find($id);
+
+        return view("admin.main-category.edit",compact("mainCategory"));
     }
 
     /**
@@ -74,7 +77,15 @@ class MainCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "title"=>"required|max:200"
+        ]);
+
+        $mainCategory=  MainCategory::find($id);
+        $mainCategory->update($request->post());
+
+        return redirect(route("main-category.index"))->with("message","Ana kategori başarıyla güncellendi");
+
     }
 
     /**
@@ -85,6 +96,8 @@ class MainCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mainCategory= MainCategory::find($id);
+        $mainCategory->delete();
+        return redirect(route("main-category.index"))->with("message","Ana kategori başarıyla silindi");
     }
 }

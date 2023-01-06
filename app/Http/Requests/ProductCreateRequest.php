@@ -28,7 +28,8 @@ class ProductCreateRequest extends FormRequest
             "title"=>"required|max:200",
             "description"=>"nullable|max:200",
             "quantity"=>"required|numeric|gt:0",
-            "price"=>"required|numeric|gt:0"
+            "price"=>"required|numeric|gt:0",
+            "sub_category_id"=>"required"
         ];
     }
     public function attributes (){
@@ -37,7 +38,8 @@ class ProductCreateRequest extends FormRequest
             "title"=>"Ürün Adı",
             "description"=>"Açıklama",
             "quantity"=>"Ürün Adeti",
-            "price"=>"Ürün Fiyatı"
+            "price"=>"Ürün Fiyatı",
+            "sub_category_id"=>"Kategori"
 
         ];
     }

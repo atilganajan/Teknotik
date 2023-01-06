@@ -19,13 +19,19 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Scripts -->
-    <script src="//unpkg.com/alpinejs" defer></script>
 
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+ 
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div id="app">
-        <nav class="navbar navbar-expand-md bg-light shadow-sm">
+        <nav class="navbar navbar-expand-md bg-light shadow-sm ">
             <div class="container">
                 <a class="navbar-brand mt-2 " href="{{ url('/') }}">
                     <h2>
@@ -33,36 +39,69 @@
                         </div>
                     </h2>
                 </a>
-                <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
+
+                <button class="navbar-toggler " type="button" id="mavnar-toggle" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class=""> <i class="fa fa-bars"></i></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @auth
-                        @if (auth()->user()->type === 'admin')
+                            @if (auth()->user()->type === 'user')
+                               
+                                <li class="nav-item ">
+                                    <a class="nav-link text-bolds " href="{{ route('order.index') }}">
+                                        <i class="fa fa-list"></i> Siparişlerim</a>
+                                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-bolds" href="{{ route("main-category.create") }}">
-                                <i class="fa fa-plus"></i> Yeni Ana Kategori Ekle</a>
-                        </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-bolds " href="{{ route('cart.index') }}">
+                                        <i class="fa fa-cart-arrow-down"></i> Sepetim</a>
+                                </li>
+                                
+                            @endif
 
-                        <li class="nav-item">
-                            <a class="nav-link text-bolds" href="{{ route("product.index") }}">
-                                <i class="fa fa-folder"></i> Ürünler</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-bolds" href="{{ route('product.create') }}">
-                                <i class="fa fa-plus"></i> Yeni Ürün Ekle</a>
-                        </li>
-                    @endif
+                            @if (auth()->user()->type === 'admin')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-bolds " href="{{ route('order.adminIndex') }}">
+                                        <i class="fa fa-cog"></i>Kullanıcı Siparişleri</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <i class="fa fa-cog"></i> Kategori İşlemleri
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-bolds ps-2" href="{{ route('main-category.create') }}">
+                                            <i class="fa fa-plus"></i> Ana kategori ekle</a>
+                                        <a class="nav-link text-bolds ps-2" href="{{ route('main-category.index') }}">
+                                            <i class="fa fa-folder"></i> Ana kategoriler</a>
+                                        <a class="nav-link text-bolds ps-2" href="{{ route('sub-category.create') }}">
+                                            <i class="fa fa-plus"></i> Alt kategori ekle</a>
+                                        <a class="nav-link text-bolds ps-2" href="{{ route('sub-category.index') }}">
+                                            <i class="fa fa-folder"></i> Alt kategoriler</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown ">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <i class="fa fa-cog"></i> Ürün İşlemleri
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link text-bolds dropdown-item ps-2"
+                                            href="{{ route('product.create') }}">
+                                            <i class="fa fa-plus"></i> Ürün ekle</a>
+                                        <a class="nav-link text-bolds dropdown-item ps-2"
+                                            href="{{ route('product.index') }}">
+                                            <i class="fa fa-folder"></i> Ürünler</a>
+                                    </div>
+                                </li>
+                            @endif
                         @endauth
 
                         @guest
@@ -93,7 +132,8 @@
                                         <i class="fa-solid fa-door-closed"></i> Çıkış Yap
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -101,10 +141,12 @@
                         @endguest
                     </ul>
                 </div>
+
             </div>
+
         </nav>
         <x-flash-message />
-          
+
         <main>
             {{ $slot }}
         </main>
@@ -112,13 +154,20 @@
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
     @isset($js)
         {{ $js }}
     @endisset
+    <script>
+        $("#mavnar-toggle").click(function() {
+            if ($("#wrapper").css("z-index") == "-1") {
+                $("#wrapper").css("z-index", "");
+            } else {
+                $("#wrapper").css("z-index", "-1");
+            }
+        });
+    </script>
 </body>
 
 </html>

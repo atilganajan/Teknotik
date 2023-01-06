@@ -17,10 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->longText("description")->nullable();
+            $table->foreignId("sub_category_id");
             $table->enum("status", ["publish", "draft", "passive"])->default("draft");
             $table->integer("price");
             $table->integer("quantity");
             $table->integer("discount")->nullable();
+            $table->integer("discounted_price")->nullable();
             $table->timestamp("discount_finished_at")->nullable();
             $table->timestamp("product_finished_at")->nullable();
             $table->string("image1");
@@ -30,6 +32,10 @@ return new class extends Migration
             $table->string("image2_id")->nullable();
             $table->string("image3_id")->nullable();
             $table->timestamps();
+
+            $table->foreign("sub_category_id")->references("id")->on("sub_categories")->onDelete("cascade");
+
+
         });
     }
 
