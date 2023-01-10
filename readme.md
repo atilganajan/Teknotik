@@ -13,7 +13,7 @@ Laravel ile yazılmış full-stack bir e-ticaret sistemi.
 ## Features
 | Feature | Technology |
 | ----------- | ----------- |
-| Authentication | [Title](link) |
+| Authentication | [laravel/ui](https://laravel.com/docs/7.x/authentication) |
 | Paragraph | Text |
 
 ## Examples
