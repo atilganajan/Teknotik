@@ -21,6 +21,7 @@ Laravel ile yazılmış full-stack bir e-ticaret sistemi.
 | Ürün değerlendirme | [Laravel](https://laravel.com/)    |
 | Alert/Notification |[Sweetalert2](https://sweetalert2.github.io/#examples) |
 | Expire date | [Laravel](https://laravel.com/docs/9.x/eloquent-serialization#date-serialization)  |
+| Fotoğraf yükleme | [cloudinary](https://cloudinary.com/)  |
 | Style | [Bootstrap 5](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 ## Examples
 ![image](https://user-images.githubusercontent.com/84190481/212448306-37dca2ff-2835-470f-bdeb-ed32038d54b3.png)
