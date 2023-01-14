@@ -31,7 +31,8 @@ Laravel ile yazılmış full-stack bir e-ticaret sistemi.
 ![image](https://user-images.githubusercontent.com/84190481/212449223-457bc22c-948b-45be-abd6-37319a600031.png)
 ![image](https://user-images.githubusercontent.com/84190481/212449292-802e2fcf-5954-4c3f-94d7-4f15aac4cc98.png)
 ![image](https://user-images.githubusercontent.com/84190481/212449827-0d574415-fb39-458a-a867-e6e94a9b0662.png)
-![image](https://user-images.githubusercontent.com/84190481/212449837-58716e7f-7e52-493a-a0e8-c5703ce759c6.png)
+![image](https://user-images.githubusercontent.com/84190481/212449932-a9f93cd0-acb9-48ab-9f96-d831204caf74.png)
+
 ![image](https://user-images.githubusercontent.com/84190481/212449871-2ba27e35-aeff-469b-b06b-4ff7c45d052a.png)
 
 
