@@ -9,7 +9,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         @foreach ($category->subCategories as $subCategory)
-                            <li><a class="dropdown-item" href="/?category={{$subCategory->id}}">{{ $subCategory->title }}</a></li>
+                            <li><a class="dropdown-item" href="/?category={{$subCategory->id}}">dddd{{ $subCategory->title }}</a></li>
                         @endforeach
                     </ul>
                 </div>

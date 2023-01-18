@@ -35,5 +35,5 @@
         @endif</div>
         <small class="text-danger cart-item-message{{$item->product->id}}"></small>
     </div>
-    Farklı değişiklik 
+    Farklı değişiklik ddd
 </div>
