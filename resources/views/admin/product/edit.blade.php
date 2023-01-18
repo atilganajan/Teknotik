@@ -20,7 +20,7 @@
                         <label for="image1" class="form-label">Ürün Fotoğrafı-1</label>
                         <input type="file" name="image1" class="form-control shadow-sm ">
                         @error('image1')
-                            <p class="text-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</p>
+                            <p class="text-danger"><i class="fa sss fa-exclamation-triangle"></i> {{ $message }}</p>
                         @enderror
                     </div>
                     <div class="col-lg-4 mt-2 mt-lg-0 d-flex">
@@ -30,7 +30,7 @@
                                     <img src="{{ $product->image2 }}" style="width: 7rem" alt="">
                                 </div>
                             @endif
-                            <label for="image2" class="form-label">Ürün Fotoğrafı-2</label>
+                            <label for="image2" class="form-label">Ürün sadas Fotoğrafı-2</label>
                             <input type="file" name="image2" class="form-control shadow-sm ">
                         </div>
                     </div>
