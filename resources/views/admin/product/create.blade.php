@@ -4,7 +4,7 @@
 
             <header class="text-center mb-4">
                 <h2 class="text-2xl font-bold ">
-                    Ürün Oluştur
+                    Ürün Oluştur Ebele gübele
                 </h2>
             </header>
             <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
