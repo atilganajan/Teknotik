@@ -14,7 +14,7 @@
 
             <div class="px-2 ">
                 <a href="{{route("product.index")}}" class="btn btn-sm  btn-info me-3">Hepsi</a>
-                <a href="{{route("product.show","draft")}}" class="btn btn-sm btn-warning" >Taslak</a>
+                <a href="{{route("product.show","draft")}}" class="btn btn-sm btn-warning" >Taslak asdas</a>
                 <a href="{{route("product.show","publish")}}" class="btn btn-sm  btn-success" >Yayın</a>
                 <a href="{{route("product.show","passive")}}" class="btn btn-sm  btn-danger " >Pasif</a>
             </div>
