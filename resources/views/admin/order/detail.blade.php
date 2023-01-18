@@ -6,7 +6,7 @@
                 <div class="col-lg-8 mt-3 mt-lg-0">
                     <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
                         <div class="card-body p-3">
-
+                            Order order
                             <div class="row">
                                 @if ( $order->status == 'cancelled')
                                     <div class="d-flex justify-content-center">
