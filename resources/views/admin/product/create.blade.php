@@ -11,7 +11,7 @@
                 @csrf
                 <div class="row mb-3">
                     <div class=" col-lg-4">
-                        <label for="image1" class="form-label">Ürün Fotoğrafı-1 &nbsp; &nbsp; <small
+                        <label for="image1" class="form-label">Ürün Fotoğrafı-1 dsad &nbsp; &nbsp; <small
                                 class="text-danger ">zorunlu alan</small> </label>
                         <input type="file" name="image1" class="form-control shadow-sm ">
                         @error('image1')
