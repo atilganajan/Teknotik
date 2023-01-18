@@ -4,7 +4,7 @@
           <div class="img-hover"><a  href="{{ route('productDetail', $product->id) }}">
             <img src="{{ $product->image1 }}" class="w-100 overflow-hidden" style="height: 16rem" /></a></div>
 
-            <div class="mask">
+            <div class="mask asds">
                 <div class="d-flex justify-content-between align-items-end h-100">
                     @if ($product->discount)
                         <h5><span class="badge bg-danger ms-2 mt-1">{{ $product->discount }} %</span></h5>

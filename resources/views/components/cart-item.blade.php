@@ -5,7 +5,7 @@
 
     <div class="col-9 ">
         Değişiklik 2
-        <a  data-id="{{$item->product->id}}"  class="float-end text-black btn removeCartItem "><i class="fas fa-times"></i></a>
+        <a  data-id="{{$item->product->id}}"  class="float-end asd text-black btn removeCartItem "><i class="fas fa-times"></i></a>
         <h5 class="text-primary">{{ $item->product->title }}</h5>
         <div class="d-flex align-items-between">
             <div>
@@ -28,12 +28,12 @@
                      class="plus stepUp mt-2"></button>
             </div>
         </div>
-        <div>Toplam: @if ($item->product->discounted_price)
+        <div>Toplam: aaa @if ($item->product->discounted_price)
            <b> <span id="cartItemIncludeDiscountTotal{{$item->product->id}}" >{{$item->quantity*$item->product->discounted_price}}</span><i class="fa fa-try" ></i></b> 
             @else
             <b><span id="cartItemTotal{{$item->product->id}}" >{{$item->quantity*$item->product->price}}</span><i class="fa fa-try" ></i></b>
         @endif</div>
         <small class="text-danger cart-item-message{{$item->product->id}}"></small>
     </div>
-    Farklı değişiklik ddd
+    Farklı değişiklik ddd adadas
 </div>
