@@ -4,7 +4,7 @@
     </div>
 
     <div class="col-9 ">
-
+        Değişiklik 2
         <a  data-id="{{$item->product->id}}"  class="float-end text-black btn removeCartItem "><i class="fas fa-times"></i></a>
         <h5 class="text-primary">{{ $item->product->title }}</h5>
         <div class="d-flex align-items-between">
@@ -35,4 +35,5 @@
         @endif</div>
         <small class="text-danger cart-item-message{{$item->product->id}}"></small>
     </div>
+    Farklı değişiklik 
 </div>
