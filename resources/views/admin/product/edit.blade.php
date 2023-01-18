@@ -41,7 +41,7 @@
                                     <img src="{{ $product->image3 }}" style="width: 7rem" alt="">
                                 </div>
                             @endif
-                            <label for="image3" class="form-label">Ürün Fotoğrafı-3</label>
+                            <label for="image3" class="form-label">Ürün Fotoğrafı-3 adas</label>
                             <input type="file" name="image3" class="form-control shadow-sm ">
                         </div>
                     </div>
