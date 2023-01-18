@@ -11,7 +11,7 @@
                                 @if ( $order->status == 'cancelled')
                                     <div class="d-flex justify-content-center">
                                         <small class="text-danger"><i class="fa fa-times"></i> Ürün siparişi İptal
-                                            edildi
+                                            edildi eqwew
                                         </small>
                                     </div>
                                 @endif
@@ -32,7 +32,7 @@
 
                             <div class="row">
                                 <div class="col mb-3">
-                                    <p class="small text-muted mb-1">Tarih</p>
+                                    <p class="small text-muted mb-1">Tarih cbvcb</p>
                                     <p>{{ $order->created_at }}</p>
                                 </div>
                                 <div class="col mb-3">
@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="col-4 ">
                                                 @if ($item->product_discounted_price)
-                                                    <s>{{ $item->product->product_price }}<i class="fa fa-try"></i></s>
+                                                    <s>{{ $item->product->product_price }}<i class="fa sadas fa-try"></i></s>
                                                     <b class="text-danger">{{ $item->product_discounted_price }}<i
                                                             class="fa fa-try"></i></b>
                                                 @else
